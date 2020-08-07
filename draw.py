@@ -11,6 +11,7 @@ extension = ('.jpg')
 def create_frame(frame_name):
     # Loading image data from file
     img = cv2.imread(frame_name, 1)
+    # img = cv2.imread("black.jpg", 1)
 
     filenum = int(re.search(r'\d+', frame_name).group())
 
@@ -26,6 +27,7 @@ def create_frame(frame_name):
             list_prev_bees.append(bee['shape'])
 
         for bee in bees_in_frame:
+            # print ("Parsing ", bee['shape'], " of frame ", filenum)
             if bee['shape'] in list_prev_bees:
 
                 prev_bee = bees_in_prev_frame[list_prev_bees.index(
@@ -36,8 +38,11 @@ def create_frame(frame_name):
                 point0 = round(bee['mid'][0]), round(bee['mid'][1])
                 point1 = round(prev_bee['mid'][0]), round(prev_bee['mid'][1])
 
+                # cv2.line(img, tuple(point0), tuple(point1),
+                #          tuple(colors[bee['shape']]), 3)
+
                 cv2.line(img, tuple(point0), tuple(point1),
-                         tuple(colors[bee['shape']]), 3)
+                           tuple(colors[bee['shape']]), 3)
 
                 # cv2.namedWindow('image',cv2.WINDOW_NORMAL)
                 # cv2.resizeWindow('image', 800,450)
